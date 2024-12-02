@@ -55,7 +55,46 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+  		animation: {
+  			'float': 'float 6s ease-in-out infinite',
+  			'float-delayed': 'float 6s ease-in-out 3s infinite',
+  			'gradient': 'gradient 8s linear infinite',
+  			'border-glow': 'borderGlow 2s ease-in-out infinite',
+  			'neural-1': 'neural 3s ease-in-out infinite',
+  			'neural-2': 'neural 3s ease-in-out 1s infinite',
+  			'neural-3': 'neural 3s ease-in-out 2s infinite',
+  		},
+  		keyframes: {
+  			float: {
+  				'0%, 100%': { transform: 'translateY(0)' },
+  				'50%': { transform: 'translateY(-20px)' },
+  			},
+  			gradient: {
+  				'0%, 100%': {
+  					'background-size': '200% 200%',
+  					'background-position': 'left center',
+  				},
+  				'50%': {
+  					'background-size': '200% 200%',
+  					'background-position': 'right center',
+  				},
+  			},
+  			borderGlow: {
+  				'0%, 100%': {
+  					'box-shadow': '0 0 15px rgba(0,255,255,0.3)',
+  				},
+  				'50%': {
+  					'box-shadow': '0 0 30px rgba(0,255,255,0.6)',
+  				},
+  			},
+  			neural: {
+  				'0%': { transform: 'translate(0, 0)' },
+  				'33%': { transform: 'translate(100px, 100px)' },
+  				'66%': { transform: 'translate(-50px, 150px)' },
+  				'100%': { transform: 'translate(0, 0)' },
+  			},
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
