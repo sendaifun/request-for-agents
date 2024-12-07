@@ -16,13 +16,31 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "SendAI",
   description: "Accelerating the Solana AI Ecosystem",
+  metadataBase: new URL('https://sendai.fun'),
   icons: {
-    icon: "/sendai-logo.png",
+    icon: "./favicon.ico",
   },
   openGraph: {
+    type: "website",
+    title: "SendAI",
+    description: "Accelerating the Solana AI Ecosystem",
+    siteName: "SendAI",
+    images: [{
+      url: "/og.png",
+      width: 1200,
+      height: 630,
+      alt: "SendAI - Accelerating the Solana AI Ecosystem"
+    }],
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "SendAI",
     description: "Accelerating the Solana AI Ecosystem",
     images: ["/og.png"],
+    creator: "@sendaifun",
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
