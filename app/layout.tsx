@@ -1,47 +1,19 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Inter, Fraunces } from 'next/font/google';
+import { Logo } from './components/Logo';
+import Link from 'next/link';
+import './globals.css';
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const fraunces = Fraunces({
+  subsets: ['latin'],
+  variable: '--font-fraunces',
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: "SendAI",
-  description: "Accelerating the Solana AI Ecosystem",
-  metadataBase: new URL('https://sendai.fun'),
-  icons: {
-    icon: "./favicon.ico",
-  },
-  openGraph: {
-    type: "website",
-    title: "SendAI",
-    description: "Accelerating the Solana AI Ecosystem",
-    siteName: "SendAI",
-    images: [{
-      url: "/og.png",
-      width: 1200,
-      height: 630,
-      alt: "SendAI - Accelerating the Solana AI Ecosystem"
-    }],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "SendAI",
-    description: "Accelerating the Solana AI Ecosystem",
-    images: ["/og.png"],
-    creator: "@sendaifun",
-  },
-  alternates: {
-    canonical: "/",
-  },
+  title: 'SEND AI - Accelerating the Solana AI Ecosystem',
+  description: 'Join us in building the future of AI on Solana',
 };
 
 export default function RootLayout({
@@ -50,11 +22,29 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${inter.variable} ${fraunces.variable} font-sans bg-neutral-50`}
       >
-        {children}
+        <nav className='w-full'>
+          <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4'>
+            <div className='flex justify-between items-center'>
+              <Link
+                href='/'
+                className='flex items-center gap-1 md:gap-2 hover:opacity-80 transition-opacity'
+              >
+                <Logo />
+                <span className='text-base md:text-xl font-medium tracking-tight'>
+                  SEND AI
+                </span>
+              </Link>
+              <button className='hidden md:block px-5 py-2.5 bg-neutral-900 text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-all duration-300'>
+                Get in touch
+              </button>
+            </div>
+          </div>
+        </nav>
+        <div className='pt-16'>{children}</div>
       </body>
     </html>
   );
