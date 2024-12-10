@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Brain, Users, Terminal, Database, X } from 'lucide-react';
+import { Brain, Users, Terminal, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from '@/hooks/use-media-query';
 
