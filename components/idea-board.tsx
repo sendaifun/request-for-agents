@@ -15,6 +15,11 @@ interface IdeaItem {
   'Idea Reviewer': string;
 }
 
+interface CachedData {
+  timestamp: number;
+  data: IdeaItem[];
+}
+
 function extractUrl(text: string): string {
   const httpMatch = text.match(/https?:\/\/[^\s]+/);
   if (httpMatch) return httpMatch[0];
@@ -24,10 +29,9 @@ function extractUrl(text: string): string {
 }
 
 const tracks = [
-  { name: 'Social Agents', icon: Users },
-  { name: 'DeFi Agents', icon: Brain },
+  { name: 'Social and Chat Agents', icon: Users },
   { name: 'Agent Infra', icon: Terminal },
-  { name: 'Agent Aggregators', icon: Database },
+  { name: 'DeFi , Token Tooling and Trading Agents', icon: Brain },
 ];
 
 export default function IdeaBoard() {
@@ -41,11 +45,39 @@ export default function IdeaBoard() {
   useEffect(() => {
     const fetchIdeas = async () => {
       try {
+        // Check localStorage for cached data
+        const cached = localStorage.getItem('cachedIdeas');
+        if (cached) {
+          const parsedCache: CachedData = JSON.parse(cached);
+          const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+          
+          // If cache is less than 1 hour old, use it
+          if (Date.now() - parsedCache.timestamp < oneHour) {
+            setIdeas(parsedCache.data);
+            return;
+          }
+        }
+
+        // Fetch fresh data if no cache or cache is expired
         const response = await fetch('https://sheetdb.io/api/v1/2wu9a6ss452zk');
         const data = await response.json();
         setIdeas(data);
+
+        // Cache the new data
+        const cacheData: CachedData = {
+          timestamp: Date.now(),
+          data: data
+        };
+        localStorage.setItem('cachedIdeas', JSON.stringify(cacheData));
       } catch (error) {
         console.error('Error fetching ideas:', error);
+        
+        // If fetch fails, try to use cached data regardless of age
+        const cached = localStorage.getItem('cachedIdeas');
+        if (cached) {
+          const parsedCache: CachedData = JSON.parse(cached);
+          setIdeas(parsedCache.data);
+        }
       }
     };
     fetchIdeas();
