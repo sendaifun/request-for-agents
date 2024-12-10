@@ -13,7 +13,48 @@ const fraunces = Fraunces({
 
 export const metadata: Metadata = {
   title: 'SEND AI - Accelerating the Solana AI Ecosystem',
-  description: 'Join us in building the future of AI on Solana',
+  description:
+    'Join us in building the future of AI on Solana through powerful tools and infrastructure. Explore AI agent ideas, participate in hackathons, and build with our developer tools.',
+  keywords: [
+    'Solana',
+    'AI',
+    'Artificial Intelligence',
+    'Blockchain',
+    'Web3',
+    'Cryptocurrency',
+    'Developer Tools',
+    'Hackathon',
+  ],
+  authors: [{ name: 'SEND AI' }],
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://sendai.fun',
+    siteName: 'SEND AI',
+    title: 'SEND AI - Accelerating the Solana AI Ecosystem',
+    description:
+      'Join us in building the future of AI on Solana through powerful tools and infrastructure.',
+    images: [
+      {
+        url: '/images/og.png',
+        width: 1200,
+        height: 630,
+        alt: 'SEND AI - Accelerating the Solana AI Ecosystem',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'SEND AI - Accelerating the Solana AI Ecosystem',
+    description:
+      'Join us in building the future of AI on Solana through powerful tools and infrastructure.',
+    creator: '@sendaifun',
+    images: ['/images/og.png'],
+  },
+  icons: {
+    icon: '/favicon.ico',
+  },
+  metadataBase: new URL('https://sendai.fun'),
 };
 
 export default function RootLayout({

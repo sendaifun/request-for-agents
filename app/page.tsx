@@ -4,15 +4,15 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-const fadeIn = {
-  hidden: { opacity: 0, y: 20 },
+const fadeUpIn = {
+  hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1,
     y: 0,
     transition: {
-      delay: i * 0.1,
-      duration: 0.5,
-      ease: 'easeOut',
+      delay: i * 0.15,
+      duration: 0.8,
+      ease: [0.33, 1, 0.68, 1],
     },
   }),
 };
@@ -22,20 +22,67 @@ const container = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.15,
       delayChildren: 0.3,
     },
   },
 };
 
-const tagHover = {
-  rest: { y: 0, opacity: 1 },
+const buttonVariants = {
+  initial: { scale: 1 },
   hover: {
-    y: -3,
-    opacity: 0.9,
+    scale: 1.02,
     transition: {
       duration: 0.3,
-      ease: 'easeOut',
+      ease: [0.33, 1, 0.68, 1],
+    },
+  },
+  tap: {
+    scale: 0.98,
+    transition: {
+      duration: 0.15,
+      ease: [0.33, 1, 0.68, 1],
+    },
+  },
+};
+
+const cardAnimation = {
+  hidden: { opacity: 0, y: 40 },
+  visible: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: {
+      delay: i * 0.15,
+      duration: 0.8,
+      ease: [0.33, 1, 0.68, 1],
+    },
+  }),
+  hover: {
+    y: -8,
+    transition: {
+      duration: 0.4,
+      ease: [0.33, 1, 0.68, 1],
+    },
+  },
+};
+
+const imageAnimation = {
+  hover: {
+    scale: 1.07,
+    transition: {
+      duration: 0.8,
+      ease: [0.33, 1, 0.68, 1],
+    },
+  },
+};
+
+const tagAnimation = {
+  initial: { opacity: 1, y: 0 },
+  hover: {
+    y: -5,
+    transition: {
+      duration: 0.3,
+      ease: [0.33, 1, 0.68, 1],
     },
   },
 };
@@ -49,6 +96,7 @@ export default function Page() {
       image: '/images/illustration1.png',
       buttonText: 'View Details',
       disabled: false,
+      link: 'https://www.solanaaihackathon.com',
     },
     {
       title: 'Autonomous AI Agents\nby Send AI',
@@ -57,6 +105,7 @@ export default function Page() {
       image: '/images/illustration2.png',
       buttonText: 'Coming Soon',
       disabled: true,
+      link: null,
     },
     {
       title: 'Solana AI Agents\nDeveloper Kit',
@@ -65,12 +114,18 @@ export default function Page() {
       image: '/images/illustration3.png',
       buttonText: 'View Details',
       disabled: false,
+      link: 'https://solanaagentkit.xyz',
     },
   ];
 
   return (
-    <main className='min-h-screen'>
-      <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24'>
+    <motion.main
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className='min-h-screen'
+    >
+      <div className='max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-24'>
         {/* Hero Section */}
         <motion.div
           initial='hidden'
@@ -78,16 +133,37 @@ export default function Page() {
           className='text-center mb-12 sm:mb-20 lg:mb-28 max-w-4xl mx-auto'
         >
           <motion.h1
-            variants={fadeIn}
+            variants={fadeUpIn}
             custom={0}
-            className='text-3xl sm:text-4xl lg:text-[4.5rem] leading-tight lg:leading-[1.1] font-serif mb-4 sm:mb-6 tracking-tight'
+            className='text-3xl sm:text-4xl lg:text-6xl leading-tight lg:leading-[1.1] font-serif mb-4 sm:mb-6 tracking-tight'
           >
-            Accelerating the
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.2,
+                duration: 0.8,
+                ease: [0.33, 1, 0.68, 1],
+              }}
+            >
+              Accelerating the
+            </motion.span>
             <br />
-            <span className='text-neutral-800'>Solana AI Ecosystem</span>
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                delay: 0.35,
+                duration: 0.8,
+                ease: [0.33, 1, 0.68, 1],
+              }}
+              className='text-neutral-800'
+            >
+              Solana AI Ecosystem
+            </motion.span>
           </motion.h1>
           <motion.p
-            variants={fadeIn}
+            variants={fadeUpIn}
             custom={1}
             className='text-neutral-600 text-base sm:text-lg mb-6 sm:mb-8 px-4 sm:px-0'
           >
@@ -95,11 +171,17 @@ export default function Page() {
             <br className='hidden sm:block' />
             through powerful tools and infrastructure.
           </motion.p>
-          <div className='flex flex-col sm:flex-row gap-3 items-center justify-center'>
+          <motion.div
+            variants={fadeUpIn}
+            custom={2}
+            className='flex flex-col sm:flex-row gap-3 items-center justify-center'
+          >
             <Link href='/ideas' className='w-full sm:w-auto'>
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                variants={buttonVariants}
+                initial='initial'
+                whileHover='hover'
+                whileTap='tap'
                 className='relative w-full px-6 sm:px-8 py-2.5 sm:py-3 group overflow-hidden'
               >
                 <div className='absolute inset-0 border border-neutral-900 rounded-full transition-all duration-300 group-hover:bg-neutral-900/5' />
@@ -115,8 +197,10 @@ export default function Page() {
               className='w-full sm:w-auto'
             >
               <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                variants={buttonVariants}
+                initial='initial'
+                whileHover='hover'
+                whileTap='tap'
                 className='relative w-full px-6 sm:px-8 py-2.5 sm:py-3 group overflow-hidden'
               >
                 <div className='absolute inset-0 bg-neutral-900 rounded-full transition-all duration-300 group-hover:bg-neutral-800' />
@@ -125,7 +209,7 @@ export default function Page() {
                 </span>
               </motion.button>
             </a>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Cards Grid */}
@@ -133,20 +217,25 @@ export default function Page() {
           variants={container}
           initial='hidden'
           animate='visible'
-          className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8'
+          className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6'
         >
           {adventures.map((adventure, index) => (
             <motion.div
               key={index}
-              variants={fadeIn}
+              variants={cardAnimation}
+              initial='hidden'
+              animate='visible'
+              whileHover='hover'
               custom={index}
-              className={`relative overflow-hidden rounded-xl sm:rounded-2xl ${adventure.gradient} aspect-[16/10] sm:aspect-[3/4] cursor-pointer`}
+              className={`relative overflow-hidden rounded-xl sm:rounded-2xl ${adventure.gradient} aspect-[16/10] sm:aspect-[3/4] cursor-pointer group`}
+              onClick={() =>
+                adventure.link && window.open(adventure.link, '_blank')
+              }
             >
               {/* Background Image */}
               <motion.div
                 className='absolute inset-0 w-full h-full'
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.4, ease: [0.33, 1, 0.68, 1] }}
+                variants={imageAnimation}
               >
                 <Image
                   src={adventure.image}
@@ -158,36 +247,70 @@ export default function Page() {
               </motion.div>
 
               {/* Gradient Overlay */}
-              <div className='absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent'></div>
+              <motion.div
+                className='absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent'
+                initial={{ opacity: 0.5 }}
+                whileHover={{ opacity: 0.7 }}
+                transition={{ duration: 0.3 }}
+              />
 
               {/* Content */}
               <div className='relative h-full flex flex-col p-4 sm:p-6'>
                 <div className='space-y-2 sm:space-y-3'>
                   <motion.span
-                    variants={tagHover}
+                    variants={tagAnimation}
                     className='inline-block px-3 py-1 sm:px-4 sm:py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-white text-xs sm:text-sm font-medium w-fit'
                   >
                     {adventure.category}
                   </motion.span>
-                  <h3 className='text-lg sm:text-xl lg:text-2xl font-serif text-white whitespace-pre-line tracking-tight'>
+                  <motion.h3
+                    className='text-lg sm:text-xl lg:text-2xl font-serif text-white whitespace-pre-line tracking-tight'
+                    variants={{
+                      hover: {
+                        y: -3,
+                        transition: { duration: 0.3, ease: [0.33, 1, 0.68, 1] },
+                      },
+                    }}
+                  >
                     {adventure.title}
-                  </h3>
+                  </motion.h3>
                 </div>
                 <div className='absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6'>
                   <motion.button
-                    whileHover={
-                      !adventure.disabled ? { scale: 1.02 } : undefined
-                    }
-                    whileTap={!adventure.disabled ? { scale: 0.98 } : undefined}
+                    variants={buttonVariants}
+                    initial='initial'
+                    whileHover={!adventure.disabled ? 'hover' : undefined}
+                    whileTap={!adventure.disabled ? 'tap' : undefined}
                     className={`w-full px-4 py-2 sm:py-2.5 bg-white text-neutral-900 rounded-full text-sm font-medium transition-colors duration-300 flex items-center justify-center gap-2 ${
                       adventure.disabled
                         ? 'opacity-50 cursor-not-allowed'
                         : 'hover:bg-neutral-100'
                     }`}
                     disabled={adventure.disabled}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (!adventure.disabled && adventure.link) {
+                        window.open(adventure.link, '_blank');
+                      }
+                    }}
                   >
                     {adventure.buttonText}
-                    {!adventure.disabled && <span className='text-lg'>→</span>}
+                    {!adventure.disabled && (
+                      <motion.span
+                        className='text-lg'
+                        variants={{
+                          hover: {
+                            x: 3,
+                            transition: {
+                              duration: 0.3,
+                              ease: [0.33, 1, 0.68, 1],
+                            },
+                          },
+                        }}
+                      >
+                        →
+                      </motion.span>
+                    )}
                   </motion.button>
                 </div>
               </div>
@@ -195,6 +318,6 @@ export default function Page() {
           ))}
         </motion.div>
       </div>
-    </main>
+    </motion.main>
   );
 }
