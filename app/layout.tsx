@@ -38,9 +38,48 @@ export default function RootLayout({
                   SEND AI
                 </span>
               </Link>
-              <button className='hidden md:block px-5 py-2.5 bg-neutral-900 text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-all duration-300'>
-                Get in touch
-              </button>
+              <div className='hidden md:flex flex-1 justify-center items-center gap-8'>
+                <Link
+                  href='/ideas'
+                  className='text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors'
+                >
+                  Ideas
+                </Link>
+                <a
+                  href='https://x.com/sendaifun'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors'
+                >
+                  Twitter
+                </a>
+              </div>
+              <div className='flex items-center gap-4 md:gap-8'>
+                <div className='flex md:hidden items-center gap-4'>
+                  <Link
+                    href='/ideas'
+                    className='text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors'
+                  >
+                    Ideas
+                  </Link>
+                  <a
+                    href='https://x.com/sendaifun'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    className='text-sm font-medium text-neutral-900 hover:text-neutral-600 transition-colors'
+                  >
+                    Twitter
+                  </a>
+                </div>
+                <a
+                  href='https://x.com/sendaifun'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='hidden md:block px-5 py-2.5 bg-neutral-900 text-white text-sm font-medium rounded-full hover:bg-neutral-800 transition-all duration-300'
+                >
+                  Get in touch
+                </a>
+              </div>
             </div>
           </div>
         </nav>

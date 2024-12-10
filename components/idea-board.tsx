@@ -9,8 +9,10 @@ interface IdeaItem {
   'Idea Header (10 words max)': string;
   'Idea Description (120 words max)': string;
   Theme: string;
+  Platform: string;
   'Reference Links and Examples': string;
   'Idea Contributor': string;
+  'Idea Reviewer': string;
 }
 
 function extractUrl(text: string): string {
