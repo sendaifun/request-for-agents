@@ -36,7 +36,7 @@ export const metadata: Metadata = {
       'Join us in building the future of AI on Solana through powerful tools and infrastructure.',
     images: [
       {
-        url: '/images/og.png',
+        url: '/og.png',
         width: 1200,
         height: 630,
         alt: 'SEND AI - Accelerating the Solana AI Ecosystem',
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     description:
       'Join us in building the future of AI on Solana through powerful tools and infrastructure.',
     creator: '@sendaifun',
-    images: ['/images/og.png'],
+    images: ['/og.png'],
   },
   icons: {
     icon: '/favicon.ico',
