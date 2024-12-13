@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Brain, Users, Terminal, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from '@/hooks/use-media-query';
+import { track } from '@vercel/analytics';
 
 interface IdeaItem {
   'Idea Header (10 words max)': string;
@@ -115,24 +116,31 @@ export default function IdeaBoard() {
           >
             All Ideas
           </motion.button>
-          {tracks.map((track) => {
-            const Icon = track.icon;
+
+          {/* changed track to trackItem - conflicting variable name */}
+          {tracks.map((trackItem) => {
+            const Icon = trackItem.icon;
             return (
               <motion.button
-                key={track.name}
+                key={trackItem.name}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => setSelectedTrack(track.name)}
+                onClick={() => {
+                  setSelectedTrack(trackItem.name)
+                  track('track_filter_click', {
+                    track: trackItem.name
+                  })
+                }}
                 className={`${
                   isMobile ? 'px-4 py-2 text-sm' : 'px-5 py-2.5 text-sm'
                 } rounded-full font-medium flex items-center gap-2 transition-all duration-300 ${
-                  selectedTrack === track.name
+                  selectedTrack === trackItem.name
                     ? 'bg-neutral-900 text-white shadow-sm'
                     : 'bg-white text-neutral-900 border border-neutral-200 hover:bg-neutral-100 shadow-sm'
                 }`}
               >
                 <Icon className='w-3.5 h-3.5' />
-                {track.name}
+                {trackItem.name}
               </motion.button>
             );
           })}
@@ -185,11 +193,13 @@ export default function IdeaBoard() {
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      onClick={() =>
-                        setSelectedReference(
-                          idea['Reference Links and Examples']
-                        )
-                      }
+                      onClick={() => {
+                        setSelectedReference(idea['Reference Links and Examples']);
+                        track('idea_details_view', {
+                          ideaTitle: idea['Idea Header (10 words max)'],
+                          ideaTheme: idea.Theme
+                        });
+                      }}
                       className='text-sm font-medium text-neutral-900 hover:text-neutral-600 flex items-center gap-1'
                     >
                       View Details

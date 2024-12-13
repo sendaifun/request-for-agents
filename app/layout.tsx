@@ -4,6 +4,10 @@ import { Logo } from './components/Logo';
 import Link from 'next/link';
 import './globals.css';
 
+// vercel analytics
+import { Analytics } from '@vercel/analytics/react';
+
+
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -125,6 +129,7 @@ export default function RootLayout({
           </div>
         </nav>
         <div className='pt-16'>{children}</div>
+        <Analytics />
       </body>
     </html>
   );
