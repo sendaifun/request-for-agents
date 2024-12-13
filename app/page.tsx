@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { track } from '@vercel/analytics';
 
 const fadeUpIn = {
   hidden: { opacity: 0, y: 30 },
@@ -178,6 +179,7 @@ export default function Page() {
           >
             <Link href='/ideas' className='w-full sm:w-auto'>
               <motion.button
+                onClick={() => track('explore_ideas_click')}
                 variants={buttonVariants}
                 initial='initial'
                 whileHover='hover'
@@ -197,6 +199,7 @@ export default function Page() {
               className='w-full sm:w-auto'
             >
               <motion.button
+                onClick={() => track('get_in_touch_click')}
                 variants={buttonVariants}
                 initial='initial'
                 whileHover='hover'
@@ -228,8 +231,17 @@ export default function Page() {
               whileHover='hover'
               custom={index}
               className={`relative overflow-hidden rounded-xl sm:rounded-2xl ${adventure.gradient} aspect-[16/10] sm:aspect-[3/4] cursor-pointer group`}
-              onClick={() =>
-                adventure.link && window.open(adventure.link, '_blank')
+              onClick={() =>{
+                if (adventure.link) {
+                  track('adventure_card_click', {
+                    title: adventure.title,
+                    category: adventure.category,
+                    link: adventure.link
+                  });
+                  window.open(adventure.link, '_blank');
+                }
+                }
+                // adventure.link && window.open(adventure.link, '_blank')
               }
             >
               {/* Background Image */}
