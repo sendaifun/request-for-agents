@@ -113,9 +113,11 @@ export default function Page() {
       category: 'Developer Tools',
       gradient: 'bg-neutral-700',
       image: '/images/illustration3.png',
-      buttonText: 'View Details',
-      disabled: false,
-      link: 'https://solanaagentkit.xyz',
+      // buttonText: 'View Details',
+      buttonText: 'Coming Soon',
+      disabled: true,
+      // link: 'https://solanaagentkit.xyz',
+      link: null,
     },
   ];
 
